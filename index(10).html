@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teacherclasstools.app</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--y:#FFC800;--yl:#FFF6BF;--w:#fff;--ink:#2b2100;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:auto}
+body{margin:0;font-family:'Cairo',Tahoma,Arial,sans-serif;background:var(--w);color:var(--ink);line-height:1.8;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px;position:relative}
+.fx{font-family:'Baloo Bhaijaan 2','Cairo',Tahoma,sans-serif}
+.latin{direction:ltr}
+
+#bar{position:fixed;top:0;inset-inline:0;height:8px;background:var(--ink);z-index:40}
+#bar i{display:block;height:100%;background:var(--y);transform-origin:right;transform:scaleX(0);border-radius:0 0 6px 6px}
+
+header{position:fixed;top:8px;inset-inline:0;z-index:30;padding-top:env(safe-area-inset-top,0px)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--w);border:4px solid var(--ink);border-radius:999px;padding:6px 8px 6px 20px;box-shadow:0 5px 0 var(--ink);max-width:1080px}
+.logo{font-weight:800;font-size:19px;direction:ltr;display:flex;align-items:center;gap:8px}
+nav{display:flex;gap:26px;font-weight:700}
+nav a:hover{color:#c28f00}
+.btn{display:inline-block;font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-weight:700;font-size:18px;background:var(--y);color:var(--ink);border:4px solid var(--ink);border-radius:999px;padding:6px 26px;box-shadow:0 6px 0 var(--ink);transition:transform .15s,box-shadow .15s;cursor:pointer}
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.95),transparent);transform:skewX(-20deg);pointer-events:none;z-index:1}
+.btn[style*="--w"]::after{background:linear-gradient(120deg,transparent,rgba(255,200,0,.75),transparent)}
+.btn:hover::after{animation:shine .8s ease}
+@keyframes shine{to{left:140%}}
+.btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 var(--ink)}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
+.btn.w{background:var(--w)}
+header .btn{font-size:16px;padding:2px 20px;box-shadow:0 4px 0 var(--ink)}
+
+/* الواجهة */
+.hero{background:var(--y);position:relative;overflow:hidden;padding:150px 0 90px;text-align:center}
+.fl{position:absolute;font-size:44px;z-index:1;animation:fl 4s ease-in-out infinite;user-select:none}
+@keyframes fl{50%{translate:0 -16px;rotate:8deg}}
+.bub{position:absolute;border-radius:50%;background:var(--w);opacity:.45}
+.mascot{width:130px;margin:0 auto 6px;animation:bn 1.6s ease-in-out infinite}
+@keyframes bn{50%{transform:translateY(-14px)}}
+.eye{animation:bl 4s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes bl{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.big{font-size:clamp(30px,8.2vw,104px);font-weight:800;line-height:1.2;margin:0;white-space:nowrap;direction:ltr}
+.big .ch{display:inline-block;opacity:0;color:var(--ink);text-shadow:4px 4px 0 var(--w);cursor:default}
+.big .ch.on{opacity:1;animation:hop 1.1s cubic-bezier(.3,1.5,.5,1)}
+.big .cur{display:inline-block;position:relative;width:0}
+.big .cur::after{content:"";position:absolute;left:.03em;bottom:.14em;width:.07em;height:.8em;background:var(--ink);border-radius:3px;animation:cb .6s steps(2) infinite}
+.big .cur.off{display:none}
+@keyframes cb{50%{opacity:0}}
+.big .ch.rj{opacity:1;animation:rj 1s cubic-bezier(.3,1.7,.5,1)}
+.big .ch.rest{opacity:1}
+.big .ch.on:hover,.big .ch.rest:hover{animation:hop2 .6s cubic-bezier(.3,1.7,.5,1)}
+@keyframes hop{0%{opacity:0;transform:translateY(60px) scale(.5)}25%{opacity:1;transform:translateY(-72px) rotate(-8deg) scale(1.15)}50%{transform:translateY(10px) scale(1.12,.86)}70%{transform:translateY(-18px) scale(.97,1.04)}85%{transform:translateY(3px) scale(1.04,.96)}100%{opacity:1;transform:none}}
+@keyframes hop2{35%{transform:translateY(-28px) rotate(6deg)}70%{transform:translateY(5px)}}
+@keyframes rj{0%{transform:none;color:var(--ink)}25%{transform:translateY(-48px) rotate(-8deg) scale(1.15);color:var(--c)}55%{transform:translateY(8px);color:var(--c)}75%{transform:translateY(-10px);color:var(--c)}100%{transform:none;color:var(--ink)}}
+.hero h1.t{font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-size:clamp(22px,3.4vw,38px);font-weight:700;margin:14px 0 6px}
+.lead{font-size:19px;max-width:580px;margin:0 auto 32px;font-weight:600}
+.pop{opacity:0;animation:pop .8s cubic-bezier(.3,1.7,.5,1) forwards}
+@keyframes pop{from{opacity:0;transform:scale(.6) translateY(20px)}to{opacity:1;transform:none}}
+.acts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+.wv{line-height:0;margin-top:-1px}.wv svg{display:block;width:100%;height:60px}
+
+section{padding:70px 0 80px}
+.head{text-align:center;margin-bottom:46px}
+h2{font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-size:clamp(30px,5vw,54px);font-weight:800;line-height:1.4;margin:0 0 6px}
+.sub{font-size:19px;font-weight:600;margin:0 auto;max-width:560px}
+.wd{display:inline-block;opacity:0;transform:translateY(40px) scale(.7);transition:opacity .4s,transform .8s cubic-bezier(.3,1.8,.5,1);transition-delay:calc(var(--i)*120ms)}
+.in .wd,.wd.in{opacity:1;transform:none}
+.hl{background:var(--y);border-radius:14px;padding:0 14px}
+
+.rv{opacity:0;transform:translateY(50px) scale(.9);transition:opacity .6s,transform .9s cubic-bezier(.3,1.5,.5,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:rotate(var(--r,0deg))}
+
+.grid{display:grid;gap:28px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--w);border:4px solid var(--ink);border-radius:28px;padding:28px 24px;box-shadow:7px 7px 0 var(--ink);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:rotate(0deg) translateY(-6px)!important;box-shadow:7px 13px 0 var(--ink)}
+.card h3{font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-size:26px;font-weight:800;margin:10px 0 4px;line-height:1.4}
+.card p{margin:0;font-weight:600}
+.em{width:76px;height:76px;border-radius:50%;background:var(--y);border:4px solid var(--ink);display:grid;place-items:center;font-size:38px}
+.card:hover .em{animation:wg .5s}
+@keyframes wg{25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+
+.slot{border:4px dashed var(--ink);border-radius:28px;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--yl);font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-weight:700;font-size:22px;text-align:center;padding:16px}
+.slot span{font-size:50px;animation:bn 2s ease-in-out infinite}
+
+.soft{background:var(--yl)}
+.why{background:var(--y)}
+.why .em{background:var(--w)}
+.why .card:nth-child(odd){background:var(--w)}
+
+.cta .box{background:var(--y);border:4px solid var(--ink);border-radius:40px;box-shadow:9px 9px 0 var(--ink);padding:56px 22px;text-align:center;position:relative;overflow:hidden}
+.cta p{font-size:20px;font-weight:700;margin:0 0 26px}
+footer{background:var(--ink);color:var(--y);text-align:center;padding:26px 0;font-weight:700}
+
+@media (max-width:760px){nav{display:none}.hero{padding-top:130px}.fl{font-size:30px}.big{white-space:normal;word-break:break-all}section{padding:50px 0 60px}}
+.step .em{font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-size:40px;font-weight:800}
+.subact{margin-top:44px;text-align:center}
+.btn.wa{background:#25D366;font-size:22px;padding:8px 36px}
+
+.grid.games{grid-template-columns:repeat(2,minmax(0,1fr))}
+.game{display:flex;flex-direction:column;overflow:hidden;background:var(--w);border:4px solid var(--ink);border-radius:28px;box-shadow:7px 7px 0 var(--ink);transition:transform .25s,box-shadow .25s}
+.game:hover{transform:rotate(0deg) translateY(-6px)!important;box-shadow:7px 13px 0 var(--ink)}
+.shot{border-bottom:4px solid var(--ink)}
+.bar3{display:flex;align-items:center;gap:6px;padding:8px 14px;background:var(--y);border-bottom:4px solid var(--ink);direction:ltr}
+.bar3 i{width:11px;height:11px;border:2px solid var(--ink);border-radius:50%;background:var(--w)}
+.bar3 span{flex:1;min-width:0;margin-inline-start:8px;padding:0 12px;overflow:hidden;border:2px solid var(--ink);border-radius:99px;background:var(--w);font-size:12px;font-weight:700;line-height:20px;text-overflow:ellipsis;white-space:nowrap}
+.view{position:relative;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,var(--yl),#ffe27a)}
+.view .ph{position:absolute;inset:0;display:grid;place-items:center;font-size:72px;animation:bn 2s ease-in-out infinite}
+.view .snap,.view iframe{position:absolute;top:0;left:0}
+.view .snap{width:100%;height:100%;object-fit:cover;object-position:top}
+.view iframe{width:1280px;height:800px;border:0;background:#fff;transform:scale(var(--k,.3));transform-origin:0 0;pointer-events:none;opacity:0;transition:opacity .6s}
+.view iframe.ready{opacity:1}
+.live{position:absolute;z-index:2;top:10px;inset-inline-start:10px;padding:0 12px;border:3px solid var(--ink);border-radius:99px;background:var(--y);font-size:12px;font-weight:800;line-height:22px}
+.live::before{content:"";display:inline-block;width:8px;height:8px;margin-inline-end:6px;border-radius:50%;background:#e63946;animation:cb 1s steps(2) infinite}
+.gb{display:flex;flex:1;flex-direction:column;gap:6px;padding:20px 24px 26px;text-align:start}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tag{padding:0 14px;border:3px solid var(--ink);border-radius:99px;background:var(--yl);font-size:13px;font-weight:800}.tag.lock{background:var(--y)}
+.gb h3{margin:4px 0 0;font-family:'Baloo Bhaijaan 2','Cairo',sans-serif;font-size:26px;font-weight:800;line-height:1.4}
+.gb p{flex:1;margin:0 0 10px;font-weight:600}
+.gb .btn{align-self:flex-start;padding:4px 24px;font-size:17px}
+@media (max-width:760px){.grid.games{grid-template-columns:1fr}}
+
+.mwrap{position:relative;width:130px;margin:0 auto 6px}
+.mw{transition:filter .2s,scale .25s}
+.mw .mascot{display:block;width:100%;margin:0}
+.mw.hot{scale:1.12;filter:drop-shadow(0 0 16px #fff)}
+.mw.fx-jump{animation:jmp .8s}.mw.fx-shake{animation:shk .6s}.mw.fx-spin{animation:spn .8s ease}.mw.fx-tilt{animation:tlt 1.2s ease}.mw.fx-grow{animation:grw .7s}
+@keyframes jmp{30%{transform:translateY(-30px) scale(1.06)}55%{transform:scale(1.1,.92)}75%{transform:translateY(-10px)}}
+@keyframes shk{20%{transform:translateX(-10px) rotate(-4deg)}60%{transform:translateX(10px) rotate(4deg)}}
+@keyframes spn{to{transform:rotate(360deg)}}
+@keyframes tlt{35%,70%{transform:rotate(-12deg)}}
+@keyframes grw{40%{transform:scale(1.25)}}
+.say{position:absolute;z-index:30;left:calc(100% + 18px);top:-6px;width:300px;padding:14px 18px 16px;border:4px solid var(--ink);border-radius:24px;background:var(--w);box-shadow:5px 5px 0 var(--ink);text-align:start;line-height:1.7}
+.say[hidden]{display:none}
+.say.in{animation:sayin .5s cubic-bezier(.3,1.7,.5,1)}
+@keyframes sayin{from{opacity:0;transform:scale(.6) translateX(-20px)}}
+@keyframes sayin2{from{opacity:0;transform:translateX(-50%) scale(.6)}to{opacity:1;transform:translateX(-50%)}}
+.say::before{content:"";position:absolute;left:-12px;top:36px;width:18px;height:18px;background:var(--w);border-left:4px solid var(--ink);border-bottom:4px solid var(--ink);transform:rotate(45deg)}
+.say .who{display:inline-block;padding:0 10px;border:3px solid var(--ink);border-radius:99px;background:var(--y);font-size:13px;font-weight:800}
+.say p{margin:4px 0 0;font-size:17px;font-weight:700}
+.say .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.say .opts button{padding:2px 16px;border:3px solid var(--ink);border-radius:99px;background:var(--yl);font:800 16px 'Cairo',sans-serif;color:var(--ink);cursor:pointer;transition:transform .15s,background .15s}
+.say .opts button:hover:not(:disabled){transform:scale(1.1);background:var(--y)}
+.say .opts button.right{background:#8ce99a}.say .opts button.wrong{background:#ffb3b3}
+.say .res{margin-top:8px;font-weight:800}
+.hint2{margin:0 0 6px;font-size:14px;font-weight:700;opacity:.85}
+.fl{padding:4px;cursor:grab;touch-action:none;-webkit-touch-callout:none}
+.fl:hover{scale:1.15}
+.fl.drag{z-index:25;animation:none;cursor:grabbing;filter:drop-shadow(0 10px 6px #00000040)}
+.fl.again{animation:rein .8s cubic-bezier(.3,1.7,.5,1)}
+@keyframes rein{from{opacity:0;scale:.2}}
+@media (max-width:900px){.say{left:50%;top:calc(100% + 12px);width:min(88vw,330px);transform:translateX(-50%)}.say.in{animation-name:sayin2}.say::before{left:calc(50% - 9px);top:-12px;border:0;border-left:4px solid var(--ink);border-top:4px solid var(--ink)}}
+
+:focus-visible{outline:4px solid var(--ink);outline-offset:3px}
+</style>
+</head>
+<body>
+<div id="bar"><i></i></div>
+<header><div class="wrap">
+  <a class="logo fx" href="#top">Teacherclasstools.app</a>
+  <nav class="fx"><a href="#games">الألعاب</a><a href="#for">لمن الموقع</a><a href="#why">لماذا نحن</a><a href="#subscribe">طريقة الاشتراك</a></nav>
+  <a class="btn" href="#subscribe">اشترك</a>
+</div></header>
+
+<main id="top">
+  <div class="hero">
+    <span class="fl" style="top:130px;inset-inline-start:6%;" data-s=".15">✏️</span>
+    <span class="fl" style="top:210px;inset-inline-end:7%;animation-delay:.6s" data-s=".1">📚</span>
+    <span class="fl" style="bottom:90px;inset-inline-start:12%;animation-delay:1.2s" data-s=".2">⭐</span>
+    <span class="fl" style="bottom:120px;inset-inline-end:14%;animation-delay:.3s" data-s=".12">🎒</span>
+    <span class="fl" style="top:120px;inset-inline-end:30%;animation-delay:.9s" data-s=".18">🍎</span>
+    <div class="bub" style="width:120px;height:120px;top:60%;inset-inline-start:-30px" data-s="-.1"></div>
+    <div class="bub" style="width:80px;height:80px;top:25%;inset-inline-end:-20px" data-s="-.15"></div>
+    <div class="wrap">
+      <div class="mwrap"><div class="mw" id="mw"><svg class="mascot" viewBox="0 0 120 120" role="img" aria-label="وجه الموقع"><circle cx="60" cy="60" r="52" fill="#fff" stroke="#2b2100" stroke-width="6"/><g id="eL" class="eye"></g><g id="eR" class="eye"></g><g id="mo"></g><circle cx="30" cy="68" r="7" fill="#FFC800" opacity=".8"/><circle cx="90" cy="68" r="7" fill="#FFC800" opacity=".8"/><g id="xt"></g></svg></div><div class="say" id="say" role="status" aria-live="polite" hidden></div></div>
+      <p class="hint2" id="hint2"></p>
+      <h1 class="big fx hop" aria-label="Teacherclasstools.app">Teacherclasstools.app</h1>
+      <h1 class="t pop" style="animation-delay:2.2s">ألعاب تجعل الحصة أجمل لكل الفصل</h1>
+      <p class="lead pop" style="animation-delay:2.4s">للطلاب والمعلمين والمعلمات: العب وتعلّم وراجع دروسك بمرح، وشغّلها في الفصل في ثوانٍ.</p>
+      <div class="acts pop" style="animation-delay:2.6s"><a class="btn" style="background:var(--w)" href="#games">تصفّح الألعاب</a><a class="btn" style="background:var(--ink);color:var(--y)" href="#why">لماذا موقعنا؟</a></div>
+    </div>
+  </div>
+  <div class="wv" style="background:var(--y)"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path fill="#fff" d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z"/></svg></div>
+
+  <section id="games">
+    <div class="wrap">
+      <div class="head"><h2 class="ttl">ألعابنا</h2><p class="sub rv" style="--d:.3s">شاهد معاينة كل لعبة وتعرّف على نوعها قبل أن تشترك.</p></div>
+      <div class="grid games">
+        <article class="game rv" style="--r:-2deg;--d:0s">
+          <div class="shot">
+            <div class="bar3" aria-hidden="true"><i></i><i></i><i></i><span class="latin">webe1.edgeone.dev</span></div>
+            <div class="view" data-src="https://webe1.edgeone.dev/"><span class="ph" aria-hidden="true">🃏</span><img class="snap" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwebe1.edgeone.dev%2F?w=1000&h=625" alt="معاينة لعبة بطاقات متشابهة" loading="lazy" onerror="this.remove()"><span class="live" aria-hidden="true">معاينة حيّة</span></div>
+          </div>
+          <div class="gb"><div class="tags"><span class="tag">لعبة ذاكرة</span><span class="tag lock">🔒 للمشتركين</span></div><h3>لعبة بطاقات متشابهة</h3><p>اقلب البطاقات وابحث عن الأزواج المتطابقة. اختر محتوى البطاقات وعددها بما يناسب مستوى الفصل، وأنهِ الجولة بأسرع وقت. ويمكنك بدء جولة جديدة بمحتوى آخر في أي لحظة.</p><a class="btn" href="https://webe1.edgeone.dev/" target="_blank" rel="noopener">العب الآن 🎮</a></div>
+        </article>
+        <article class="game rv" style="--r:2deg;--d:.15s">
+          <div class="shot">
+            <div class="bar3" aria-hidden="true"><i></i><i></i><i></i><span class="latin">webe2.edgeone.dev</span></div>
+            <div class="view" data-src="https://webe2.edgeone.dev/"><span class="ph" aria-hidden="true">🎡</span><img class="snap" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwebe2.edgeone.dev%2F?w=1000&h=625" alt="معاينة أدِر عجلة الأسماء" loading="lazy" onerror="this.remove()"><span class="live" aria-hidden="true">معاينة حيّة</span></div>
+          </div>
+          <div class="gb"><div class="tags"><span class="tag">لعبة عجلة</span><span class="tag lock">🔒 للمشتركين</span></div><h3>أدِر عجلة الأسماء</h3><p>أضف أسماء الطلاب وأدِر العجلة ليقع الاختيار على اسم عشوائي، لمشاركة عادلة ومرحة تشدّ انتباه الفصل.</p><a class="btn" href="https://webe2.edgeone.dev/" target="_blank" rel="noopener">العب الآن 🎮</a></div>
+        </article>
+        <article class="game rv" style="--r:2deg;--d:.1s">
+          <div class="shot">
+            <div class="bar3" aria-hidden="true"><i></i><i></i><i></i><span class="latin">webe3.edgeone.dev</span></div>
+            <div class="view" data-src="https://webe3.edgeone.dev/"><span class="ph" aria-hidden="true">❓</span><img class="snap" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwebe3.edgeone.dev%2F?w=1000&h=625" alt="معاينة إنشاء سؤال للطلاب" loading="lazy" onerror="this.remove()"><span class="live" aria-hidden="true">معاينة حيّة</span></div>
+          </div>
+          <div class="gb"><div class="tags"><span class="tag">لعبة أسئلة</span><span class="tag lock">🔒 للمشتركين</span></div><h3>إنشاء سؤال للطلاب</h3><p>أنشئ سؤالاً بنفسك وقدّمه لطلابك ليجيبوا عنه، فيشارك الجميع ويتفاعل الفصل كله.</p><a class="btn" href="https://webe3.edgeone.dev/" target="_blank" rel="noopener">العب الآن 🎮</a></div>
+        </article>
+        <article class="game rv" style="--r:-2deg;--d:.25s">
+          <div class="shot">
+            <div class="bar3" aria-hidden="true"><i></i><i></i><i></i><span class="latin">webe4.edgeone.dev</span></div>
+            <div class="view" data-src="https://webe4.edgeone.dev/"><span class="ph" aria-hidden="true">📦</span><img class="snap" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwebe4.edgeone.dev%2F?w=1000&h=625" alt="معاينة صناديق الأسئلة" loading="lazy" onerror="this.remove()"><span class="live" aria-hidden="true">معاينة حيّة</span></div>
+          </div>
+          <div class="gb"><div class="tags"><span class="tag">لعبة صناديق</span><span class="tag lock">🔒 للمشتركين</span></div><h3>صناديق الأسئلة</h3><p>صناديق بداخلها أسئلة يضعها المعلم؛ يفتح الطالب صندوقاً ويجيب عن السؤال الذي بداخله.</p><a class="btn" href="https://webe4.edgeone.dev/" target="_blank" rel="noopener">العب الآن 🎮</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <div class="wv" style="background:#fff"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path fill="#FFF6BF" d="M0 30 Q150 60 300 30 T600 30 T900 30 T1200 30 V60 H0Z"/></svg></div>
+
+  <section id="for" class="soft">
+    <div class="wrap">
+      <div class="head"><h2 class="ttl">موقع لكل من في الفصل</h2><p class="sub rv" style="--d:.4s">للطالب والمعلم والمعلمة، وكلٌّ يجد ما يناسبه.</p></div>
+      <div class="grid">
+        <div class="card rv" style="--r:-2deg"><div class="em">🧒</div><h3>للطلاب</h3><p>العب وتعلّم وراجع دروسك بطريقة تحبها وتشجعك على المحاولة.</p></div>
+        <div class="card rv" style="--r:1.5deg;--d:.15s"><div class="em">👨‍🏫</div><h3>للمعلمين</h3><p>أدوات جاهزة للعرض على السبورة تُشرك كل طلاب الفصل.</p></div>
+        <div class="card rv" style="--r:-1.5deg;--d:.3s"><div class="em">👩‍🏫</div><h3>للمعلمات</h3><p>وقت تحضير أقل، وحصص أكثر حيوية وتفاعلًا مع الطالبات.</p></div>
+      </div>
+    </div>
+  </section>
+  <div class="wv" style="background:#FFF6BF"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path fill="#FFC800" d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z"/></svg></div>
+
+  <section id="why" class="why">
+    <div class="wrap">
+      <div class="head"><h2 class="ttl">لماذا موقعنا الأفضل؟</h2><p class="sub rv" style="--d:.5s">لأننا نصمم كل لعبة وفي بالنا الفصل الحقيقي.</p></div>
+      <div class="grid">
+        <div class="card rv" style="--r:-1.5deg"><div class="em">⚡</div><h3>سريع وبسيط</h3><p>افتح اللعبة وابدأ مباشرة بلا خطوات معقدة.</p></div>
+        <div class="card rv" style="--r:1.5deg;--d:.1s"><div class="em">🎯</div><h3>مصمم للتعليم</h3><p>كل لعبة تخدم هدفًا تعليميًا واضحًا.</p></div>
+        <div class="card rv" style="--r:-1.5deg;--d:.2s"><div class="em">📱</div><h3>يعمل على كل جهاز</h3><p>جوال أو حاسوب أو شاشة الفصل.</p></div>
+        <div class="card rv" style="--r:1.5deg"><div class="em">🌟</div><h3>واجهة عربية واضحة</h3><p>يفهمها الطالب الصغير والمعلم المشغول.</p></div>
+        <div class="card rv" style="--r:-1.5deg;--d:.1s"><div class="em">🔄</div><h3>يتجدد باستمرار</h3><p>ألعاب وأدوات جديدة تحت عنوان واحد تعرفه.</p></div>
+        <div class="card rv" style="--r:1.5deg;--d:.2s"><div class="em">💛</div><h3>تفاعل وتحفيز</h3><p>يشجّع المشاركة حتى من الطالب الخجول.</p></div>
+      </div>
+    </div>
+  </section>
+  <div class="wv" style="background:#FFC800"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path fill="#FFF6BF" d="M0 30 Q150 60 300 30 T600 30 T900 30 T1200 30 V60 H0Z"/></svg></div>
+
+  <section id="subscribe" class="soft">
+    <div class="wrap">
+      <div class="head"><h2 class="ttl">طريقة الاشتراك</h2><p class="sub rv" style="--d:.5s">ألعابنا باشتراك مدفوع، والبدء بثلاث خطوات سهلة.</p></div>
+      <div class="grid">
+        <div class="card rv step" style="--r:-2deg"><div class="em">1</div><h3>تواصل معنا</h3><p>اضغط «اشترك» وراسلنا مباشرة عبر واتساب.</p></div>
+        <div class="card rv step" style="--r:1.5deg;--d:.15s"><div class="em">2</div><h3>أرسل بريدك</h3><p>أرسل بريدك الإلكتروني واختر مدة الاشتراك التي تناسبك.</p></div>
+        <div class="card rv step" style="--r:-1.5deg;--d:.3s"><div class="em">3</div><h3>العب واستمتع</h3><p>نفعّل اشتراكك على بريدك، ثم تدخل وتلعب فوراً.</p></div>
+      </div>
+      <div class="subact rv" style="--d:.2s">
+        <a class="btn wa" href="https://wa.me/97433156414?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D9%81%D9%8A%20Teacherclasstools.app" target="_blank" rel="noopener"><span aria-hidden="true">💬</span> اشترك عبر واتساب</a>
+      </div>
+    </div>
+  </section>
+  <div class="wv" style="background:#FFF6BF"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path fill="#fff" d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z"/></svg></div>
+
+  <section class="cta">
+    <div class="wrap"><div class="box">
+      <h2 class="ttl">جاهز لحصة ممتعة؟</h2>
+      <p class="rv" style="--d:.3s">ابدأ مع <span class="latin fx">Teacherclasstools.app</span> اليوم</p>
+      <a class="btn rv" style="background:var(--w);--d:.45s" href="https://wa.me/97433156414?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D9%81%D9%8A%20Teacherclasstools.app" target="_blank" rel="noopener">اشترك</a>
+    </div></div>
+  </section>
+</main>
+<footer><div class="wrap">© <span class="latin">Teacherclasstools.app</span> · جميع الحقوق محفوظة</div></footer>
+
+<script>
+(function(){
+  var t=document.querySelector('.hop'),chs=[],busy=false,tm=[],cur=document.createElement('span');cur.className='cur';cur.setAttribute('aria-hidden','true');
+  if(t){var s0=t.textContent;t.textContent='';s0.split('').forEach(function(c,i){var e=document.createElement('span');e.className='ch';e.textContent=c;e.setAttribute('aria-hidden','true');t.appendChild(e);chs.push(e);});}
+  var cols=['#e63946','#2a9d8f','#3a86ff','#8338ec','#ff006e','#fb5607','#06a77d'];
+  function typeIt(){
+    busy=true;tm.forEach(clearTimeout);tm=[];
+    chs.forEach(function(c){c.className='ch'});
+    cur.classList.remove('off');t.insertBefore(cur,chs[0]);
+    chs.forEach(function(c,i){tm.push(setTimeout(function(){c.classList.add('on');c.after(cur);if(i===chs.length-1){busy=false;tm.push(setTimeout(function(){cur.classList.add('off')},1600));}},300+i*125));});
+  }
+  function rnd(){
+    if(busy||!chs.length)return;
+    var c=chs[Math.floor(Math.random()*chs.length)];
+    if(c.classList.contains('rj'))return;
+    c.style.setProperty('--c',cols[Math.floor(Math.random()*cols.length)]);
+    c.classList.remove('on','rest');c.classList.add('rj');
+    setTimeout(function(){c.classList.remove('rj');c.classList.add('rest');},1000);
+  }
+  typeIt();setInterval(rnd,3000);setInterval(typeIt,30000);
+  document.querySelectorAll('.ttl').forEach(function(h){
+    var w=h.textContent.trim().split(/\s+/);h.textContent='';
+    w.forEach(function(x,i){var e=document.createElement('span');e.className='wd';e.style.setProperty('--i',i);e.textContent=x;h.appendChild(e);h.appendChild(document.createTextNode(' '));});
+  });
+  var els=document.querySelectorAll('.rv,.ttl');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});}
+  else{var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.2});els.forEach(function(e){io.observe(e)});}
+  function glide(y,ms){var s=scrollY,d=y-s,t0=null,stop=false;
+    function cancel(){stop=true}
+    addEventListener('wheel',cancel,{once:true,passive:true});addEventListener('touchstart',cancel,{once:true,passive:true});
+    function step(t){if(stop)return;if(t0===null)t0=t;var p=Math.min((t-t0)/ms,1),e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;scrollTo(0,s+d*e);if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]');if(!a)return;
+    var id=a.getAttribute('href').slice(1),el=id?document.getElementById(id):null;if(!el)return;
+    e.preventDefault();
+    var y=id==='top'?0:Math.max(0,el.getBoundingClientRect().top+scrollY-90);
+    glide(y,Math.min(1500,650+Math.abs(y-scrollY)*.4));
+    if(history.replaceState)history.replaceState(null,'','#'+id);
+  });
+  var bar=document.querySelector('#bar i'),ds=document.querySelectorAll('[data-s]'),tk=false;
+  function up(){var y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+    bar.style.transform='scaleX('+(h>0?y/h:0)+')';
+    ds.forEach(function(d){d.style.marginTop=(y*d.dataset.s)+'px'});tk=false;}
+  addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(up)}},{passive:true});up();
+  /* live miniature of each game: a scaled-down iframe loaded when it gets close to the screen */
+  (function(){
+    var views=document.querySelectorAll('.view[data-src]');
+    function fit(v){v.style.setProperty('--k',v.clientWidth/1280)}
+    var ro='ResizeObserver' in window?new ResizeObserver(function(es){es.forEach(function(e){fit(e.target)})}):null;
+    views.forEach(function(v){fit(v);if(ro)ro.observe(v)});
+    addEventListener('resize',function(){views.forEach(fit)});
+    function load(v){if(v.dataset.done)return;v.dataset.done=1;
+      var f=document.createElement('iframe');f.src=v.dataset.src;f.tabIndex=-1;f.title='';
+      f.setAttribute('aria-hidden','true');f.setAttribute('referrerpolicy','no-referrer');f.setAttribute('sandbox','allow-scripts allow-same-origin');
+      f.addEventListener('load',function(){f.classList.add('ready')});v.insertBefore(f,v.querySelector('.live'));}
+    if('IntersectionObserver' in window){var io2=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){load(x.target);io2.unobserve(x.target)}})},{rootMargin:'300px'});views.forEach(function(v){io2.observe(v)});}
+    else views.forEach(load);
+  })();
+})();
+(function(){
+  var mw=document.getElementById('mw');if(!mw)return;
+  var eL=document.getElementById('eL'),eR=document.getElementById('eR'),mo=document.getElementById('mo'),xt=document.getElementById('xt'),say=document.getElementById('say'),hint=document.getElementById('hint2');
+  var K='#2b2100',st='fill="none" stroke="'+K+'" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"';
+  var arc=function(x,up){return '<path d="M'+(x-9)+' 56 Q'+x+' '+(up?40:72)+' '+(x+9)+' 56" '+st+'/>'};
+  var dot=function(x,y){return '<ellipse cx="'+x+'" cy="'+y+'" rx="7" ry="9" fill="'+K+'"/>'};
+  var heart=function(x){return '<path d="M'+x+' 62 C'+(x-15)+' 51 '+(x-10)+' 40 '+x+' 47 C'+(x+10)+' 40 '+(x+15)+' 51 '+x+' 62Z" fill="#e63946"/>'};
+  var open='<path d="M36 68 Q60 108 84 68 Z" fill="#e63946" stroke="'+K+'" stroke-width="5" stroke-linejoin="round"/>';
+  var F={
+    idle:{L:dot(42,52),R:dot(78,52),M:'<path d="M38 72 Q60 98 82 72" '+st+'/>'},
+    happy:{L:arc(42,1),R:arc(78,1),M:open},
+    cheer:{L:arc(42,1),R:arc(78,1),M:open,X:'<text x="6" y="30" font-size="22" fill="#FFC800" stroke="'+K+'" stroke-width="1.5">★</text><text x="96" y="30" font-size="22" fill="#FFC800" stroke="'+K+'" stroke-width="1.5">★</text>'},
+    laugh:{L:'<path d="M33 45 L50 54 L33 63" '+st+'/>',R:'<path d="M87 45 L70 54 L87 63" '+st+'/>',M:'<path d="M34 68 Q60 114 86 68 Z" fill="#e63946" stroke="'+K+'" stroke-width="5" stroke-linejoin="round"/>'},
+    wow:{L:'<circle cx="42" cy="52" r="10" fill="#fff" stroke="'+K+'" stroke-width="5"/><circle cx="42" cy="52" r="4" fill="'+K+'"/>',R:'<circle cx="78" cy="52" r="10" fill="#fff" stroke="'+K+'" stroke-width="5"/><circle cx="78" cy="52" r="4" fill="'+K+'"/>',M:'<ellipse cx="60" cy="86" rx="9" ry="12" fill="#e63946" stroke="'+K+'" stroke-width="5"/>'},
+    think:{L:dot(45,50)+'<path d="M32 38 L52 33" '+st+'/>',R:dot(81,50)+'<path d="M68 33 L88 38" '+st+'/>',M:'<path d="M44 84 Q58 76 78 86" '+st+'/>'},
+    wink:{L:dot(42,52),R:'<path d="M70 52 Q78 62 86 52" '+st+'/>',M:'<path d="M38 72 Q62 98 86 66" '+st+'/>'},
+    sleepy:{L:'<path d="M33 54 H51" '+st+'/>',R:'<path d="M69 54 H87" '+st+'/>',M:'<ellipse cx="60" cy="82" rx="7" ry="5" fill="#e63946" stroke="'+K+'" stroke-width="4"/>',X:'<text x="88" y="32" font-size="22" font-weight="800" fill="'+K+'">z</text><text x="100" y="16" font-size="16" font-weight="800" fill="'+K+'">Z</text>'},
+    love:{L:heart(42),R:heart(78),M:'<path d="M38 72 Q60 100 82 72" '+st+'/>'}
+  };
+  function face(n){var f=F[n]||F.idle;eL.innerHTML=f.L;eR.innerHTML=f.R;mo.innerHTML=f.M;xt.innerHTML=f.X||'';var b=n==='idle'?'eye':'';eL.setAttribute('class',b);eR.setAttribute('class',b);}
+  var T=function(e,face,fx,who,say){return{e:e,face:face,fx:fx,t:'tip',who:who,say:say}};
+  var Q=function(e,face,fx,q,o,a){return{e:e,face:face,fx:fx,t:'q',q:q,o:o,a:a}};
+  var S='💡 نصيحة للطالب',M='💡 نصيحة للمعلم',A='💡 للجميع';
+  /* four sets of five emojis: 00-06, 06-12, 12-18, 18-24 */
+  var SETS=[
+    [T('🌙','sleepy','tilt',S,'النوم الكافي يرفع التركيز! نَمْ مبكراً لتفهم دروسك أسرع غداً.'),Q('📖','think','shake','أي كوكب يُعرف بالكوكب الأحمر؟',['زحل','المريخ','عطارد'],1),T('💡','wow','grow',M,'ابدأ الحصة بسؤال مفتوح؛ الفضول يشعل انتباه الطلاب أكثر من أي شرح.'),Q('🔭','wink','spin','كم عدد كواكب المجموعة الشمسية؟',['7','8','9'],1),T('🧠','love','jump',S,'راجع درس اليوم خلال 24 ساعة؛ المراجعة المبكرة تثبّت المعلومة في ذاكرتك.')],
+    [T('☀️','happy','jump',A,'صباح الخير! ابدأ يومك بابتسامة؛ فالحماس معدٍ في الفصل.'),Q('✏️','wink','tilt','كم يساوي 7 × 8؟',['54','56','63'],1),T('🍎','love','grow',M,'كلمة تشجيع صادقة لطالب اليوم قد تغيّر أسبوعه كله.'),T('🎒','cheer','spin',S,'جهّز حقيبتك من الليلة، وابدأ صباحك هادئاً بلا استعجال.'),Q('📚','think','shake','ما عاصمة دولة قطر؟',['مسقط','الدوحة','الرياض'],1)],
+    [Q('🧪','wow','grow','أي غاز نتنفسه ويحتاجه جسمنا؟',['الأكسجين','النيتروجين','الهيليوم'],0),T('🔢','think','tilt',M,'اجعل الطلاب يشرحون الحل لزملائهم؛ من يشرح يتعلّم مرتين.'),Q('🌍','wink','jump','ما أكبر محيط في العالم؟',['الهندي','الأطلسي','الهادئ'],2),T('🎨','happy','spin',S,'حوّل المعلومة إلى رسمة؛ الرسم يساعد الذاكرة على تثبيتها.'),T('⚽','laugh','shake',A,'استراحة حركة قصيرة تجعل عقلك أنشط للحصة التالية!')],
+    [T('📝','think','tilt',S,'اكتب واجبك في وقت ثابت كل يوم؛ العادة هي سر الإنجاز.'),T('🏆','love','jump',A,'كل خطوة صغيرة تقدّم، والتميّز يأتي من المثابرة. أنت قادر!'),Q('🧩','wow','shake','ما العدد التالي؟ 2، 4، 8، 16، ؟',['24','32','30'],1),T('🎧','sleepy','grow',S,'أغلق الإشعارات 25 دقيقة وركّز، ثم خذ استراحة قصيرة.'),T('🌟','cheer','spin',M,'احتفِ غداً بنجاحات طلابك الصغيرة؛ الاحتفاء يصنع الحافز.')]
+  ];
+  var NAMES=['ليلٌ هادئ 🌙','صباحٌ نشيط ☀️','ظهيرةٌ مشرقة 🌤️','مساءٌ هادئ 🌆'];
+  var fls=[].slice.call(document.querySelectorAll('.fl')).slice(0,5),block=-1,reacting=false,rt=0;
+  function applyBlock(){var b=Math.floor(new Date().getHours()/6);if(b===block)return;var first=block<0;block=b;
+    fls.forEach(function(el,i){el.textContent=SETS[b][i].e;el.setAttribute('aria-label','إيموجي '+SETS[b][i].e+' — اسحبه إلى الوجه');if(!first){el.classList.remove('again');void el.offsetWidth;el.classList.add('again');setTimeout(function(){el.classList.remove('again')},800);}});
+    hint.textContent=NAMES[b]+' · اسحب أي إيموجي وأفلته على الوجه'; if(!first)calm();}
+  function calm(){clearTimeout(rt);reacting=false;face('idle');say.hidden=true;say.classList.remove('in');mw.className='mw'}
+  function react(r){
+    clearTimeout(rt);reacting=true;face(r.face);mw.className='mw';void mw.offsetWidth;mw.classList.add('fx-'+r.fx);
+    say.hidden=false;say._r=null;
+    if(r.t==='q'){say._r=r;say.innerHTML='<b class="who">❓ سؤال سريع</b><p>'+r.q+'</p><div class="opts">'+r.o.map(function(o,k){return '<button type="button" data-k="'+k+'">'+o+'</button>'}).join('')+'</div>';}
+    else{say.innerHTML='<b class="who">'+r.who+'</b><p>'+r.say+'</p>';rt=setTimeout(calm,8000);}
+    say.classList.remove('in');void say.offsetWidth;say.classList.add('in');
+  }
+  say.addEventListener('click',function(e){
+    var b=e.target.closest('button[data-k]');if(!b||!say._r)return;var r=say._r;say._r=null;var ok=+b.dataset.k===r.a;
+    [].forEach.call(say.querySelectorAll('button'),function(x,k){x.disabled=true;if(k===r.a)x.classList.add('right');else if(x===b)x.classList.add('wrong')});
+    face(ok?'cheer':'think');mw.className='mw';void mw.offsetWidth;mw.classList.add(ok?'fx-jump':'fx-shake');
+    var p=document.createElement('p');p.className='res';p.textContent=ok?'أحسنت! إجابة صحيحة 🎉':'قريب! الإجابة الصحيحة: '+r.o[r.a];say.appendChild(p);
+    clearTimeout(rt);rt=setTimeout(calm,4500);
+  });
+  function over(x,y){var r=mw.getBoundingClientRect();return x>r.left-30&&x<r.right+30&&y>r.top-30&&y<r.bottom+30}
+  function hot(on){mw.classList.toggle('hot',on);if(!reacting)face(on?'wow':'idle')}
+  function feed(el,i,tap){
+    if(el.dataset.busy)return;el.dataset.busy=1;
+    if(!tap){var a=el.getBoundingClientRect(),b=mw.getBoundingClientRect(),d=el._d||[0,0];
+      el.style.transition='transform .35s ease-in,opacity .35s';
+      el.style.transform='translate('+(d[0]+b.left+b.width/2-a.left-a.width/2)+'px,'+(d[1]+b.top+b.height/2-a.top-a.height/2)+'px) scale(.1)';el.style.opacity='0';}
+    else{el.style.opacity='0';}
+    react(SETS[block][i]);
+    setTimeout(function(){el.style.transition='none';el.style.transform='';el.style.opacity='';el.classList.add('again');setTimeout(function(){el.classList.remove('again');delete el.dataset.busy},800);},1500);
+  }
+  function back(el){el.style.transition='transform .5s cubic-bezier(.3,1.7,.5,1)';el.style.transform='';setTimeout(function(){el.style.transition=''},520)}
+  fls.forEach(function(el,i){
+    var sx,sy,drag=false,moved=0,id;
+    el.setAttribute('role','button');el.tabIndex=0;
+    el.addEventListener('pointerdown',function(e){if(el.dataset.busy)return;drag=true;moved=0;id=e.pointerId;sx=e.clientX;sy=e.clientY;el._d=[0,0];
+      try{el.setPointerCapture(id)}catch(_){}el.classList.add('drag');el.style.transition='none';e.preventDefault();});
+    el.addEventListener('pointermove',function(e){if(!drag||e.pointerId!==id)return;var dx=e.clientX-sx,dy=e.clientY-sy;moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));
+      el._d=[dx,dy];el.style.transform='translate('+dx+'px,'+dy+'px) scale(1.3)';hot(over(e.clientX,e.clientY));});
+    function end(e){if(!drag||e.pointerId!==id)return;drag=false;el.classList.remove('drag');hot(false);
+      if(e.type==='pointerup'&&moved<6){el.style.transform='';feed(el,i,true);}
+      else if(e.type==='pointerup'&&over(e.clientX,e.clientY))feed(el,i,false);
+      else back(el);}
+    el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end);
+    el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();feed(el,i,true)}});
+  });
+  face('idle');applyBlock();setInterval(applyBlock,60000);
+})();
+</script>
+</body>
+</html>
